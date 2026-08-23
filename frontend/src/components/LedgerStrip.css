@@ -1,0 +1,76 @@
+.ledger-strip {
+  border-top: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule-strong);
+  padding: var(--space-3) 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.ledger-strip::before,
+.ledger-strip::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 64px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.ledger-strip::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--ink-800), transparent);
+}
+
+.ledger-strip::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--ink-800), transparent);
+}
+
+.ledger-strip-track {
+  display: flex;
+  gap: var(--space-6);
+  width: max-content;
+  animation: ledger-scroll 34s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ledger-strip-track {
+    animation: none;
+  }
+}
+
+@keyframes ledger-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.ledger-entry {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--paper-dim);
+  white-space: nowrap;
+}
+
+.ledger-entry .no {
+  color: var(--paper-faint);
+}
+
+.ledger-entry .amt {
+  color: var(--brass-300);
+}
+
+.ledger-entry .tag-in {
+  color: var(--sage-300);
+}
+
+.ledger-entry .tag-out {
+  color: var(--copper-300);
+}
