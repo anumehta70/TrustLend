@@ -1,0 +1,15 @@
+.score-seal {
+  display: inline-flex;
+}
+
+.score-seal-num {
+  fill: var(--paper);
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.score-seal-tier {
+  fill: var(--brass-300);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
