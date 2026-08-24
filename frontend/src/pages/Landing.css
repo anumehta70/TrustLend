@@ -1,0 +1,92 @@
+.hero {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: var(--space-8);
+  align-items: center;
+  padding-top: var(--space-9);
+  padding-bottom: var(--space-8);
+}
+
+.hero-actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.hero-seal-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.hero-seal-stats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+.hero-seal-stats > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  border-bottom: 1px dashed var(--rule);
+  padding-bottom: var(--space-2);
+}
+
+.hero-seal-stats dt {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--paper-faint);
+}
+
+.hero-seal-stats dd {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--brass-300);
+}
+
+.how {
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-8);
+}
+
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.how-step h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  margin: 0 0 var(--space-2);
+}
+
+.how-step p {
+  color: var(--paper-dim);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.why {
+  padding-bottom: var(--space-9);
+}
+
+.why-card {
+  max-width: 720px;
+}
+
+@media (max-width: 860px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: var(--space-6);
+  }
+  .how-grid {
+    grid-template-columns: 1fr;
+  }
+}
