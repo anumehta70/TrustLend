@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
-import { isConnected, requestAccess, getAddress, signTransaction as freighterSign } from "@stellar/freighter-api";
+import { useEffect } from "react";
+import { isConnected, isAllowed, requestAccess, getAddress, signTransaction as freighterSign } from "@stellar/freighter-api";
 
 interface WalletState {
   address: string | null;
@@ -16,6 +17,16 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const [address, setAddress] = useState<string | null>(null);
   const [connecting, setConnecting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    isAllowed().then(allowed => {
+      if (allowed) {
+        getAddress().then(res => {
+          if (res.address) setAddress(res.address);
+        }).catch(() => {});
+      }
+    }).catch(() => {});
+  }, []);
 
   const connect = useCallback(async () => {
     setConnecting(true);
