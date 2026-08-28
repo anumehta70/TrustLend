@@ -12,7 +12,7 @@ Built for the Stellar Builder Track — Level 4 / Green Belt submission.
 
 - **Live Platform**: [https://trust-lend-ochre.vercel.app](https://trust-lend-ochre.vercel.app)
 - **Example Transaction Hash**: [`b47b0e7be666bf9014513db050b6b039fe052eee20dbf099f811f9e810dcce36`](https://testnet.steexp.com/tx/b47b0e7be666bf9014513db050b6b039fe052eee20dbf099f811f9e810dcce36)
-- **TrustLend Contract ID**: `CAZY44JHCFERS6JBAMP5EK4RTNXKGGQQRNX52TW462ITJJJXFKY7BY4Z`
+- **TrustLend Contract ID**: [`CAZY44JHCFERS6JBAMP5EK4RTNXKGGQQRNX52TW462ITJJJXFKY7BY4Z`](https://stellar.expert/explorer/testnet/contract/CAZY44JHCFERS6JBAMP5EK4RTNXKGGQQRNX52TW462ITJJJXFKY7BY4Z)
 
 ---
 
