@@ -5,3 +5,6 @@
 **/*.log
 .DS_Store
 Cargo.lock
+**/*.tsbuildinfo
+frontend/vite.config.d.ts
+frontend/vite.config.js
