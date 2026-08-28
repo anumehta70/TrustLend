@@ -49,7 +49,7 @@ export async function syncWalletPayments(wallet: string): Promise<{ synced: numb
       continue;
     }
 
-    const amountDecimal = Number(record.amount ?? "0");
+    const amountDecimal = Number(record.amount || record.starting_balance || "0");
     if (!(amountDecimal > 0)) continue;
     const amountStroops = BigInt(Math.round(amountDecimal * 10_000_000));
 
