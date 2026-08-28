@@ -90,6 +90,27 @@ export function Borrow() {
     }
   }
 
+  async function handleRepay(loanId: number, principal: string) {
+    if (!address) return;
+    setBusy(`repay-${loanId}`);
+    setError(null);
+    try {
+      const { hash } = await invokeAsWallet(
+        "repay",
+        [contractArgs.address(address), contractArgs.u64(loanId), contractArgs.i128(BigInt(principal))],
+        address,
+        sign
+      );
+      setLastTx(hash);
+      await api.updateLoanStatus(loanId, "repaid");
+      await refresh(address);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Repayment failed");
+    } finally {
+      setBusy(null);
+    }
+  }
+
   if (!address) {
     return (
       <section className="page dash-empty">
@@ -205,6 +226,16 @@ export function Borrow() {
                   <td className="mono">{new Date(loan.dueAt).toLocaleDateString()}</td>
                   <td>
                     <span className={`chip chip-${loan.status}`}>{loan.status}</span>
+                    {loan.status === "active" && (
+                      <button 
+                        className="btn btn-ghost" 
+                        style={{ marginLeft: "8px", padding: "2px 8px", fontSize: "0.8rem" }}
+                        onClick={() => void handleRepay(loan.loanId, loan.principal)}
+                        disabled={busy === `repay-${loan.loanId}`}
+                      >
+                        {busy === `repay-${loan.loanId}` ? "..." : "Repay"}
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}

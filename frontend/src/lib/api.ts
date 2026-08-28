@@ -50,6 +50,12 @@ export const api = {
     dueAt: string;
   }) => request<LoanRecord>("/loans", { method: "POST", body: JSON.stringify(payload) }),
 
+  updateLoanStatus: (loanId: number, status: "active" | "repaid" | "defaulted") =>
+    request(`/loans/${loanId}/status`, {
+      method: "PATCH",
+      body: JSON.stringify({ status }),
+    }),
+
   getBorrowerLoans: (wallet: string) => request<LoanRecord[]>(`/loans/borrower/${wallet}`),
 
   getPoolStats: () => request<{ stats: [string, string] }>("/pool/stats"),
