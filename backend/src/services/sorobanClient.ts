@@ -16,10 +16,8 @@ const server = new rpc.Server(env.SOROBAN_RPC_URL, { allowHttp: env.SOROBAN_RPC_
 const networkPassphrase = env.STELLAR_NETWORK_PASSPHRASE || Networks.TESTNET;
 
 function contract(): Contract {
-  if (!env.CONTRACT_ID) {
-    throw new Error("CONTRACT_ID is not configured — deploy the contract and set it in backend/.env");
-  }
-  return new Contract(env.CONTRACT_ID);
+  // Hardcoded for hackathon demo to bypass Render configuration issues
+  return new Contract("CAZY44JHCFERS6JBAMP5EK4RTNXKGGQQRNX52TW462ITJJJXFKY7BY4Z");
 }
 
 function indexerKeypair(): Keypair {
