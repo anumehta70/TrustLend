@@ -66,16 +66,18 @@ export function Borrow() {
       const principalStroops = toStroops(Number(principal));
       const collateralStroops = (principalStroops * BigInt(score.min_collateral_bps)) / 10_000n;
 
-      const { hash } = await invokeAsWallet(
+      const { hash, result } = await invokeAsWallet(
         "request_loan",
         [contractArgs.address(address), contractArgs.i128(principalStroops), contractArgs.i128(collateralStroops)],
         address,
         sign
       );
 
+      const realLoanId = Number(result);
+
       setLastTx(hash);
       await api.recordLoan({
-        loanId: Date.now(), // replaced by indexer reconciliation against the on-chain event in production
+        loanId: realLoanId,
         borrower: address,
         principal: principalStroops.toString(),
         collateral: collateralStroops.toString(),
@@ -90,14 +92,19 @@ export function Borrow() {
     }
   }
 
-  async function handleRepay(loanId: number, principal: string) {
+  async function handleRepay(loanId: number, principalStr: string) {
     if (!address) return;
     setBusy(`repay-${loanId}`);
     setError(null);
     try {
+      const principal = BigInt(principalStr);
+      // The contract charges a fixed 18% (1800 bps) interest for score 500 fallback.
+      // Owed = principal + (principal * 1800 / 10000) = principal * 118 / 100
+      const exactOwed = principal + (principal * 1800n) / 10_000n;
+
       const { hash } = await invokeAsWallet(
         "repay",
-        [contractArgs.address(address), contractArgs.u64(loanId), contractArgs.i128(BigInt(principal))],
+        [contractArgs.address(address), contractArgs.u64(loanId), contractArgs.i128(exactOwed)],
         address,
         sign
       );
