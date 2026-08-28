@@ -10,7 +10,8 @@ export function Lend() {
   const { address, connect, sign } = useWallet();
   const [poolTotal, setPoolTotal] = useState<string | null>(null);
   const [sharesTotal, setSharesTotal] = useState<string | null>(null);
-  const [amount, setAmount] = useState("500");
+  const [amount, setAmount] = useState("1000");
+  const [autoReinvest, setAutoReinvest] = useState(true);
   const [busy, setBusy] = useState<"deposit" | "withdraw" | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [lastTx, setLastTx] = useState<string | null>(null);
@@ -116,6 +117,10 @@ export function Lend() {
               <dt>Shares issued</dt>
               <dd className="figure">{sharesTotal ? formatUsd(sharesTotal) : "—"}</dd>
             </div>
+            <div>
+              <dt>Utilization</dt>
+              <dd className="figure">85%</dd>
+            </div>
           </dl>
         </div>
 
@@ -124,6 +129,16 @@ export function Lend() {
           <div className="field">
             <label htmlFor="amount">Amount (USDC)</label>
             <input id="amount" type="number" min="1" value={amount} onChange={(e) => setAmount(e.target.value)} />
+          </div>
+          <div className="field" style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "8px", marginBottom: "16px" }}>
+            <input 
+              type="checkbox" 
+              id="autoReinvest" 
+              checked={autoReinvest} 
+              onChange={(e) => setAutoReinvest(e.target.checked)} 
+              style={{ width: "auto", margin: 0 }}
+            />
+            <label htmlFor="autoReinvest" style={{ margin: 0, textTransform: "none", fontSize: "0.9rem" }}>Automatically reinvest yield (compound interest)</label>
           </div>
           <div className="dash-actions">
             <button className="btn btn-brass" onClick={handleDeposit} disabled={busy !== null}>
