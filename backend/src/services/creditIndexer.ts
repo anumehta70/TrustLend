@@ -27,17 +27,21 @@ export async function syncWalletPayments(wallet: string): Promise<{ synced: numb
     .call();
 
   for (const op of page.records) {
-    if (op.type !== "payment" && op.type !== "path_payment_strict_receive" && op.type !== "path_payment_strict_send") {
+    if (op.type !== "payment" && op.type !== "path_payment_strict_receive" && op.type !== "path_payment_strict_send" && op.type !== "create_account") {
       continue;
     }
     const record = op as unknown as {
       to?: string;
+      account?: string;
       amount?: string;
+      starting_balance?: string;
       asset_type?: string;
       transaction_hash: string;
       created_at: string;
     };
-    if (record.to !== wallet) continue; // only inbound payments count as income signal
+    
+    const recipient = record.to || record.account;
+    if (recipient !== wallet) continue; // only inbound payments count as income signal
 
     const exists = await PaymentEvent.findOne({ txHash: record.transaction_hash });
     if (exists) {
