@@ -34,8 +34,9 @@ Built for the Stellar Builder Track — Level 4 / Green Belt submission.
 </div>
 
 <div align="center">
-  <img src="./screenshots/mobile%20ui.png" alt="Mobile UI" width="300"/>
-  <img src="./screenshots/credit%20seal%20score.png" alt="Credit Seal" width="300"/>
+  <img src="./screenshots/mobile%20ui.png" alt="Mobile UI" width="250"/>
+  <img src="./screenshots/credit%20seal%20score.png" alt="Credit Seal" width="250"/>
+  <img src="./screenshots/on%20chain%20analytics.png" alt="On-chain Analytics" width="250"/>
 </div>
 
 ---
