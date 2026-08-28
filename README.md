@@ -42,7 +42,12 @@ Built for the Stellar Builder Track — Level 4 / Green Belt submission.
 
 ## 🗣️ Beta Feedback & Implementation
 
-We actively listened to our testnet beta testers and implemented their suggestions directly into the project during the hackathon:
+We actively listened to our testnet beta testers and implemented their suggestions directly into the project during the hackathon.
+
+**Beta Testing Resources:**
+- [📋 Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSfSax8Wapiz-cR0kwZ2o2iKYmOZsmw5HKwkwMz8paezCFn-Qw/viewform?usp=dialog)
+- [📊 Tester Tracking Sheet](https://docs.google.com/spreadsheets/d/1C1Cpp5lJlDIHOi6N0MUtBMT4srUQfuNaZ8duO6MOobQ/edit?usp=sharing)
+
 
 | User | Feedback | Feature Implemented | Commit |
 |------|----------|---------------------|--------|
