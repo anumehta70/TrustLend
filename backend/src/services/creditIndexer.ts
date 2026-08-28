@@ -44,7 +44,7 @@ export async function syncWalletPayments(wallet: string): Promise<{ synced: numb
     if (recipient !== wallet) continue; // only inbound payments count as income signal
 
     const exists = await PaymentEvent.findOne({ txHash: record.transaction_hash });
-    if (exists) {
+    if (exists && exists.recordedOnChain) {
       skipped += 1;
       continue;
     }
@@ -53,14 +53,17 @@ export async function syncWalletPayments(wallet: string): Promise<{ synced: numb
     if (!(amountDecimal > 0)) continue;
     const amountStroops = BigInt(Math.round(amountDecimal * 10_000_000));
 
-    const doc = await PaymentEvent.create({
-      wallet,
-      amount: amountStroops.toString(),
-      assetCode: record.asset_type === "native" ? "XLM" : "USDC",
-      txHash: record.transaction_hash,
-      ledgerCloseTime: new Date(record.created_at),
-      recordedOnChain: false,
-    });
+    let doc = exists;
+    if (!doc) {
+      doc = await PaymentEvent.create({
+        wallet,
+        amount: amountStroops.toString(),
+        assetCode: record.asset_type === "native" ? "XLM" : "USDC",
+        txHash: record.transaction_hash,
+        ledgerCloseTime: new Date(record.created_at),
+        recordedOnChain: false,
+      });
+    }
 
     try {
       await soroban.recordPayment(wallet, amountStroops);
