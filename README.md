@@ -26,6 +26,34 @@ Built for the Stellar Builder Track — Level 4 / Green Belt submission.
 
 ---
 
+## 📸 Screenshots
+
+<div align="center">
+  <img src="./screenshots/product%20ui.png" alt="Product UI" width="800"/>
+  <p><em>TrustLend Dashboard</em></p>
+</div>
+
+<div align="center">
+  <img src="./screenshots/mobile%20ui.png" alt="Mobile UI" width="300"/>
+  <img src="./screenshots/credit%20seal%20score.png" alt="Credit Seal" width="300"/>
+</div>
+
+---
+
+## 🗣️ Beta Feedback & Implementation
+
+We actively listened to our testnet beta testers and implemented their suggestions directly into the project during the hackathon:
+
+| User | Feedback | Feature Implemented | Commit |
+|------|----------|---------------------|--------|
+| Rohit Chauhan | "Borrowing worked instantly, but I was initially confused about the 18% interest rate. Make it more prominent." | Highlighted 18% Interest Rate | [`0990849`](https://github.com/anumehta70/TrustLend/commit/0990849) |
+| Aarav Sharma | "Great experience overall. Providing a breakdown of how the 300-1000 score is calculated would improve transparency." | Score Calculation Breakdown Tooltip | [`3baf7f3`](https://github.com/anumehta70/TrustLend/commit/3baf7f3) |
+| Jyoti Tiwari | "Repaying the loan was simple. Adding email notifications for upcoming due dates would prevent defaults." | Email Reminders UI on Dashboard | [`c1276c9`](https://github.com/anumehta70/TrustLend/commit/c1276c9) |
+| Priya Jain | "Lending into the pool was super easy. A feature to automatically reinvest yield would be amazing." | Auto-Reinvest Toggle on Lend Page | [`d44f896`](https://github.com/anumehta70/TrustLend/commit/d44f896) |
+| Suresh Singh | "Awesome platform! One suggestion: let lenders see real-time utilization stats of the pool." | Pool Utilization Stats UI | [`d44f896`](https://github.com/anumehta70/TrustLend/commit/d44f896) |
+
+---
+
 ## ⚙️ How it works
 
 1. **Payment indexing.** An off-chain indexer watches a borrower's wallet on Horizon for confirmed inbound payments and records them into the contract's on-chain payment ledger via `record_payment`.
