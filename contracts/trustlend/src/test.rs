@@ -68,8 +68,14 @@ fn credit_score_rises_with_recorded_payments() {
     let _ = admin;
 
     let score = client.get_credit_score(&borrower);
-    assert!(score.score > MIN_SCORE, "score should climb above the floor");
-    assert!(score.max_loan > 0, "borrower with history should get a nonzero ceiling");
+    assert!(
+        score.score > MIN_SCORE,
+        "score should climb above the floor"
+    );
+    assert!(
+        score.max_loan > 0,
+        "borrower with history should get a nonzero ceiling"
+    );
 }
 
 #[test]
@@ -119,7 +125,10 @@ fn full_loan_lifecycle_disburse_and_repay() {
     assert_eq!(loan.status, LoanStatus::Repaid);
 
     let updated_score = client.get_credit_score(&borrower);
-    assert!(updated_score.score >= score.score, "on-time repayment should not lower score");
+    assert!(
+        updated_score.score >= score.score,
+        "on-time repayment should not lower score"
+    );
 }
 
 #[test]

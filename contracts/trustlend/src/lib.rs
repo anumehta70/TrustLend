@@ -27,10 +27,10 @@ use soroban_sdk::{
 pub enum DataKey {
     Admin,
     Token,
-    PoolTotal,     // total underlying token held by the pool
-    SharesTotal,   // total LP shares issued
+    PoolTotal,   // total underlying token held by the pool
+    SharesTotal, // total LP shares issued
     LpShares(Address),
-    Ledger(Address),  // PaymentLedger per borrower
+    Ledger(Address), // PaymentLedger per borrower
     LoanCounter,
     Loan(u64),
     BorrowerLoans(Address), // Vec<u64> active/historical loan ids
@@ -51,10 +51,10 @@ pub enum LoanStatus {
 #[contracttype]
 #[derive(Clone)]
 pub struct PaymentLedger {
-    pub total_volume: i128,   // lifetime recorded inbound payment volume
-    pub payment_count: u32,   // number of recorded payment events
-    pub first_seen: u64,      // ledger timestamp of first recorded payment
-    pub last_seen: u64,       // ledger timestamp of most recent payment
+    pub total_volume: i128, // lifetime recorded inbound payment volume
+    pub payment_count: u32, // number of recorded payment events
+    pub first_seen: u64,    // ledger timestamp of first recorded payment
+    pub last_seen: u64,     // ledger timestamp of most recent payment
     pub on_time_repayments: u32,
     pub defaults: u32,
 }
@@ -74,8 +74,8 @@ pub struct Loan {
 #[contracttype]
 #[derive(Clone)]
 pub struct CreditScore {
-    pub score: u32,        // 0-1000
-    pub max_loan: i128,     // suggested max principal at current score
+    pub score: u32,              // 0-1000
+    pub max_loan: i128,          // suggested max principal at current score
     pub min_collateral_bps: u32, // required collateral, in basis points of principal
 }
 
@@ -164,8 +164,16 @@ impl TrustLend {
             return Err(Error::InvalidAmount);
         }
         let token = Self::token_addr(&env)?;
-        let pool_total: i128 = env.storage().instance().get(&DataKey::PoolTotal).unwrap_or(0);
-        let shares_total: i128 = env.storage().instance().get(&DataKey::SharesTotal).unwrap_or(0);
+        let pool_total: i128 = env
+            .storage()
+            .instance()
+            .get(&DataKey::PoolTotal)
+            .unwrap_or(0);
+        let shares_total: i128 = env
+            .storage()
+            .instance()
+            .get(&DataKey::SharesTotal)
+            .unwrap_or(0);
 
         let minted = if shares_total == 0 || pool_total == 0 {
             amount
@@ -173,16 +181,25 @@ impl TrustLend {
             amount * shares_total / pool_total
         };
 
-        token::Client::new(&env, &token).transfer(&lender, &env.current_contract_address(), &amount);
+        token::Client::new(&env, &token).transfer(
+            &lender,
+            &env.current_contract_address(),
+            &amount,
+        );
 
         let key = DataKey::LpShares(lender.clone());
         let existing: i128 = env.storage().persistent().get(&key).unwrap_or(0);
         env.storage().persistent().set(&key, &(existing + minted));
 
-        env.storage().instance().set(&DataKey::PoolTotal, &(pool_total + amount));
-        env.storage().instance().set(&DataKey::SharesTotal, &(shares_total + minted));
+        env.storage()
+            .instance()
+            .set(&DataKey::PoolTotal, &(pool_total + amount));
+        env.storage()
+            .instance()
+            .set(&DataKey::SharesTotal, &(shares_total + minted));
 
-        env.events().publish((symbol_short!("lp_dep"),), (lender, amount, minted));
+        env.events()
+            .publish((symbol_short!("lp_dep"),), (lender, amount, minted));
         Ok(minted)
     }
 
@@ -197,21 +214,38 @@ impl TrustLend {
         if held < shares {
             return Err(Error::InsufficientShares);
         }
-        let pool_total: i128 = env.storage().instance().get(&DataKey::PoolTotal).unwrap_or(0);
-        let shares_total: i128 = env.storage().instance().get(&DataKey::SharesTotal).unwrap_or(0);
+        let pool_total: i128 = env
+            .storage()
+            .instance()
+            .get(&DataKey::PoolTotal)
+            .unwrap_or(0);
+        let shares_total: i128 = env
+            .storage()
+            .instance()
+            .get(&DataKey::SharesTotal)
+            .unwrap_or(0);
         let payout = shares * pool_total / shares_total;
         if payout > pool_total {
             return Err(Error::InsufficientPoolLiquidity);
         }
 
         let token = Self::token_addr(&env)?;
-        token::Client::new(&env, &token).transfer(&env.current_contract_address(), &lender, &payout);
+        token::Client::new(&env, &token).transfer(
+            &env.current_contract_address(),
+            &lender,
+            &payout,
+        );
 
         env.storage().persistent().set(&key, &(held - shares));
-        env.storage().instance().set(&DataKey::PoolTotal, &(pool_total - payout));
-        env.storage().instance().set(&DataKey::SharesTotal, &(shares_total - shares));
+        env.storage()
+            .instance()
+            .set(&DataKey::PoolTotal, &(pool_total - payout));
+        env.storage()
+            .instance()
+            .set(&DataKey::SharesTotal, &(shares_total - shares));
 
-        env.events().publish((symbol_short!("lp_wd"),), (lender, shares, payout));
+        env.events()
+            .publish((symbol_short!("lp_wd"),), (lender, shares, payout));
         Ok(payout)
     }
 
@@ -229,20 +263,25 @@ impl TrustLend {
         }
         let now = env.ledger().timestamp();
         let key = DataKey::Ledger(borrower.clone());
-        let mut ledger: PaymentLedger = env.storage().persistent().get(&key).unwrap_or(PaymentLedger {
-            total_volume: 0,
-            payment_count: 0,
-            first_seen: now,
-            last_seen: now,
-            on_time_repayments: 0,
-            defaults: 0,
-        });
+        let mut ledger: PaymentLedger =
+            env.storage()
+                .persistent()
+                .get(&key)
+                .unwrap_or(PaymentLedger {
+                    total_volume: 0,
+                    payment_count: 0,
+                    first_seen: now,
+                    last_seen: now,
+                    on_time_repayments: 0,
+                    defaults: 0,
+                });
         ledger.total_volume += amount;
         ledger.payment_count += 1;
         ledger.last_seen = now;
         env.storage().persistent().set(&key, &ledger);
 
-        env.events().publish((symbol_short!("payment"),), (borrower, amount));
+        env.events()
+            .publish((symbol_short!("payment"),), (borrower, amount));
         Ok(())
     }
 
@@ -297,7 +336,11 @@ impl TrustLend {
             5000 // 50%
         };
 
-        CreditScore { score, max_loan, min_collateral_bps }
+        CreditScore {
+            score,
+            max_loan,
+            min_collateral_bps,
+        }
     }
 
     // -------------------------------------------------------------
@@ -336,7 +379,11 @@ impl TrustLend {
         }
 
         let token = Self::token_addr(&env)?;
-        let pool_total: i128 = env.storage().instance().get(&DataKey::PoolTotal).unwrap_or(0);
+        let pool_total: i128 = env
+            .storage()
+            .instance()
+            .get(&DataKey::PoolTotal)
+            .unwrap_or(0);
         if principal > pool_total {
             return Err(Error::InsufficientPoolLiquidity);
         }
@@ -348,7 +395,11 @@ impl TrustLend {
         }
         client.transfer(&env.current_contract_address(), &borrower, &principal);
 
-        let mut counter: u64 = env.storage().instance().get(&DataKey::LoanCounter).unwrap_or(0);
+        let mut counter: u64 = env
+            .storage()
+            .instance()
+            .get(&DataKey::LoanCounter)
+            .unwrap_or(0);
         counter += 1;
         let due_ledger = env.ledger().timestamp() + LOAN_TERM_DAYS * 86_400;
         let loan = Loan {
@@ -360,9 +411,15 @@ impl TrustLend {
             due_ledger,
             status: LoanStatus::Active,
         };
-        env.storage().persistent().set(&DataKey::Loan(counter), &loan);
-        env.storage().instance().set(&DataKey::LoanCounter, &counter);
-        env.storage().instance().set(&DataKey::PoolTotal, &(pool_total - principal + collateral));
+        env.storage()
+            .persistent()
+            .set(&DataKey::Loan(counter), &loan);
+        env.storage()
+            .instance()
+            .set(&DataKey::LoanCounter, &counter);
+        env.storage()
+            .instance()
+            .set(&DataKey::PoolTotal, &(pool_total - principal + collateral));
 
         let mut ids: Vec<u64> = env
             .storage()
@@ -370,9 +427,14 @@ impl TrustLend {
             .get(&DataKey::BorrowerLoans(borrower.clone()))
             .unwrap_or(Vec::new(&env));
         ids.push_back(counter);
-        env.storage().persistent().set(&DataKey::BorrowerLoans(borrower.clone()), &ids);
+        env.storage()
+            .persistent()
+            .set(&DataKey::BorrowerLoans(borrower.clone()), &ids);
 
-        env.events().publish((symbol_short!("loan_new"),), (borrower, counter, principal, collateral));
+        env.events().publish(
+            (symbol_short!("loan_new"),),
+            (borrower, counter, principal, collateral),
+        );
         Ok(counter)
     }
 
@@ -398,11 +460,21 @@ impl TrustLend {
         }
 
         let token = Self::token_addr(&env)?;
-        token::Client::new(&env, &token).transfer(&borrower, &env.current_contract_address(), &applied);
+        token::Client::new(&env, &token).transfer(
+            &borrower,
+            &env.current_contract_address(),
+            &applied,
+        );
 
         loan.repaid += applied;
-        let pool_total: i128 = env.storage().instance().get(&DataKey::PoolTotal).unwrap_or(0);
-        env.storage().instance().set(&DataKey::PoolTotal, &(pool_total + applied));
+        let pool_total: i128 = env
+            .storage()
+            .instance()
+            .get(&DataKey::PoolTotal)
+            .unwrap_or(0);
+        env.storage()
+            .instance()
+            .set(&DataKey::PoolTotal, &(pool_total + applied));
 
         if loan.repaid >= owed {
             loan.status = LoanStatus::Repaid;
@@ -412,14 +484,25 @@ impl TrustLend {
                     &borrower,
                     &loan.collateral,
                 );
-                let pool_total: i128 = env.storage().instance().get(&DataKey::PoolTotal).unwrap_or(0);
-                env.storage().instance().set(&DataKey::PoolTotal, &(pool_total - loan.collateral));
+                let pool_total: i128 = env
+                    .storage()
+                    .instance()
+                    .get(&DataKey::PoolTotal)
+                    .unwrap_or(0);
+                env.storage()
+                    .instance()
+                    .set(&DataKey::PoolTotal, &(pool_total - loan.collateral));
             }
             Self::bump_ledger_repayment(&env, &borrower, true);
         }
-        env.storage().persistent().set(&DataKey::Loan(loan_id), &loan);
+        env.storage()
+            .persistent()
+            .set(&DataKey::Loan(loan_id), &loan);
 
-        env.events().publish((symbol_short!("repay"),), (borrower, loan_id, applied, loan.status.clone()));
+        env.events().publish(
+            (symbol_short!("repay"),),
+            (borrower, loan_id, applied, loan.status.clone()),
+        );
         Ok(())
     }
 
@@ -436,11 +519,16 @@ impl TrustLend {
             return Err(Error::NotYetDue);
         }
         loan.status = LoanStatus::Defaulted;
-        env.storage().persistent().set(&DataKey::Loan(loan_id), &loan);
+        env.storage()
+            .persistent()
+            .set(&DataKey::Loan(loan_id), &loan);
         // collateral stays in the pool (already held there since disbursement)
         Self::bump_ledger_repayment(&env, &loan.borrower, false);
 
-        env.events().publish((symbol_short!("default"),), (loan.borrower.clone(), loan_id));
+        env.events().publish(
+            (symbol_short!("default"),),
+            (loan.borrower.clone(), loan_id),
+        );
         Ok(())
     }
 
@@ -460,13 +548,24 @@ impl TrustLend {
     }
 
     pub fn get_pool_stats(env: Env) -> (i128, i128) {
-        let total: i128 = env.storage().instance().get(&DataKey::PoolTotal).unwrap_or(0);
-        let shares: i128 = env.storage().instance().get(&DataKey::SharesTotal).unwrap_or(0);
+        let total: i128 = env
+            .storage()
+            .instance()
+            .get(&DataKey::PoolTotal)
+            .unwrap_or(0);
+        let shares: i128 = env
+            .storage()
+            .instance()
+            .get(&DataKey::SharesTotal)
+            .unwrap_or(0);
         (total, shares)
     }
 
     pub fn lp_balance(env: Env, lender: Address) -> i128 {
-        env.storage().persistent().get(&DataKey::LpShares(lender)).unwrap_or(0)
+        env.storage()
+            .persistent()
+            .get(&DataKey::LpShares(lender))
+            .unwrap_or(0)
     }
 
     // -------------------------------------------------------------
@@ -486,7 +585,11 @@ impl TrustLend {
             .get(&DataKey::BorrowerLoans(borrower.clone()))
             .unwrap_or(Vec::new(env));
         for id in ids.iter() {
-            if let Some(loan) = env.storage().persistent().get::<_, Loan>(&DataKey::Loan(id)) {
+            if let Some(loan) = env
+                .storage()
+                .persistent()
+                .get::<_, Loan>(&DataKey::Loan(id))
+            {
                 if loan.status == LoanStatus::Active {
                     return Some(id);
                 }
@@ -515,15 +618,25 @@ impl TrustLend {
     }
 
     fn loan_or_err(env: &Env, loan_id: u64) -> Result<Loan, Error> {
-        env.storage().persistent().get(&DataKey::Loan(loan_id)).ok_or(Error::LoanNotFound)
+        env.storage()
+            .persistent()
+            .get(&DataKey::Loan(loan_id))
+            .ok_or(Error::LoanNotFound)
     }
 
     fn token_addr(env: &Env) -> Result<Address, Error> {
-        env.storage().instance().get(&DataKey::Token).ok_or(Error::NotInitialized)
+        env.storage()
+            .instance()
+            .get(&DataKey::Token)
+            .ok_or(Error::NotInitialized)
     }
 
     fn require_admin(env: &Env) -> Result<(), Error> {
-        let admin: Address = env.storage().instance().get(&DataKey::Admin).ok_or(Error::NotInitialized)?;
+        let admin: Address = env
+            .storage()
+            .instance()
+            .get(&DataKey::Admin)
+            .ok_or(Error::NotInitialized)?;
         admin.require_auth();
         Ok(())
     }
