@@ -54,7 +54,7 @@ async function adminCall(method: string, args: ReturnType<typeof nativeToScVal>[
   const kp = indexerKeypair();
   const account = await server.getAccount(kp.publicKey());
 
-  let tx = new TransactionBuilder(account, { fee: BASE_FEE, networkPassphrase })
+  const tx = new TransactionBuilder(account, { fee: BASE_FEE, networkPassphrase })
     .addOperation(contract().call(method, ...args))
     .setTimeout(30)
     .build();
