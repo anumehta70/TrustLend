@@ -11,6 +11,7 @@ Built for the Stellar Builder Track — Level 4 / Green Belt submission.
 ## 🔗 Live Demo & Links
 
 - **Live Platform**: [https://trust-lend-ochre.vercel.app](https://trust-lend-ochre.vercel.app)
+- **Demo Video**: [Watch Demo](https://drive.google.com/file/d/10AvMdJqEvX2n-0WfMWqFDAdEaTVMIPSi/view?usp=sharing)
 - **Example Transaction Hash**: [`b47b0e7be666bf9014513db050b6b039fe052eee20dbf099f811f9e810dcce36`](https://testnet.steexp.com/tx/b47b0e7be666bf9014513db050b6b039fe052eee20dbf099f811f9e810dcce36)
 - **TrustLend Contract ID**: [`CAZY44JHCFERS6JBAMP5EK4RTNXKGGQQRNX52TW462ITJJJXFKY7BY4Z`](https://stellar.expert/explorer/testnet/contract/CAZY44JHCFERS6JBAMP5EK4RTNXKGGQQRNX52TW462ITJJJXFKY7BY4Z)
 
@@ -26,37 +27,50 @@ Built for the Stellar Builder Track — Level 4 / Green Belt submission.
 
 ---
 
-## 📸 Screenshots
+## 📸 Screenshots & Evidence
 
-<div align="center">
-  <img src="./screenshots/product%20ui.png" alt="Product UI" width="800"/>
-  <p><em>TrustLend Dashboard</em></p>
-</div>
+| TrustLend Dashboard | Mobile Responsive View |
+|:---:|:---:|
+| <img src="./screenshots/product%20ui.png" width="400" alt="Product UI"> | <img src="./screenshots/mobile%20ui.png" width="400" alt="Mobile Design"> |
 
-<div align="center">
-  <img src="./screenshots/mobile%20ui.png" alt="Mobile UI" width="250"/>
-  <img src="./screenshots/credit%20seal%20score.png" alt="Credit Seal" width="250"/>
-  <img src="./screenshots/on%20chain%20analytics.png" alt="On-chain Analytics" width="250"/>
-</div>
+| Credit Seal Score | On-chain Analytics |
+|:---:|:---:|
+| <img src="./screenshots/credit%20seal%20score.png" width="400" alt="Credit Seal"> | <img src="./screenshots/on%20chain%20analytics.png" width="400" alt="Analytics"> |
 
 ---
 
-## 🗣️ Beta Feedback & Implementation
+## 👥 User Onboarding
 
-We actively listened to our testnet beta testers and implemented their suggestions directly into the project during the hackathon.
+We successfully onboarded **14 real users** with Stellar Testnet wallets and verified on-chain transactions. You can view the full exported Excel/CSV sheet containing all users, their emails, wallet addresses, and feedback via the link in the "Live Demo & Links" section above.
 
-**Beta Testing Resources:**
-- [📋 Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSfSax8Wapiz-cR0kwZ2o2iKYmOZsmw5HKwkwMz8paezCFn-Qw/viewform?usp=dialog)
-- [📊 Tester Tracking Sheet](https://docs.google.com/spreadsheets/d/1C1Cpp5lJlDIHOi6N0MUtBMT4srUQfuNaZ8duO6MOobQ/edit?usp=sharing)
+### 1. Users Onboarded (First 14 Users)
+| User ID | Name | Email | Wallet Address | Proof (Transaction) | Feedback Summary |
+|---|---|---|---|---|---|
+| 1 | Kavita Tiwari | 9988kavitatiwari@gmail.com | `GBS7LI6PUKICS4N5W3DN6O2NHAQ5T4GINV7TA3LD7KYY4YSFP7L6V55F` | [`ebbb3f...a616`](https://testnet.steexp.com/tx/ebbb3f6b56ac4b759d896e4a16ebdb5eb442da88e64b97d0e765fe38d140a616) | UI is incredibly sleek, but I'd love to see a dark/light mode toggle |
+| 2 | Anil Kumar | anilkumar1508@gmail.com | `GB272ZL75YYH6ICAZOVVY53FUB2QKJV5RJ7XVKXMCE47HAFIRPZJLDCL` | [`72ad01...a429`](https://testnet.steexp.com/tx/72ad01626bc8a7c66774209ebaa181d7545b77983311ee6294389a84d34ea429) | Undercollateralized loans based on real transaction history is a game changer! Works flawlessly |
+| 3 | Sunita Mishra | sunita456mishra@gmail.com | `GCATPOP26VCNEY3M2STPH2QABO4S6TWJQDQL2DQP5UGITQGC5S64MQWK` | [`fd8683...a823`](https://testnet.steexp.com/tx/fd8683649d11c332130464cd92f56e40ed396e262d56aa4dd234d01a3dffa823) | borrower dashboard is intuitive. Adding a chart for credit score history over time would be great |
+| 4 | Rohit Chauhan | rohitc98765@gmail.com | `GBYSQQT7LZAEUNSOKDPAB7JUVVCXKEK3ZCEAPBSN5XQ3PUFPH7NJYR5V` | [`ce2f53...d52e`](https://testnet.steexp.com/tx/ce2f53db106a1822c7a5ff42719585b73d4606c6513f58b375c60c02ae04d52e) | Borrowing worked instantly, but I was initially confused about the 18% interest rate. Make it more prominent |
+| 5 | Priya Jain | priya1990jain@gmail.com | `GBB72J2RTQTRUJGM7UBVBIS2P72PQ5ITZIENN6KWVKY4BQ7HC4OPQO42` | [`c33a40...dd1e`](https://testnet.steexp.com/tx/c33a40e398d9bf9212ad92dec193d0a91b277ad830f146b691a34837abb1dd1e) | Lending into the pool was super easy. A feature to automatically reinvest yield would be amazing |
+| 6 | Ramesh Sharma | rameshsharma4321@gmail.com | `GBB3DYK3LOGWWW2TUW3DSBVQJHL4H43VJFUSLBANVAEKE6KJYOJ6PMT2` | [`282d71...82a0`](https://testnet.steexp.com/tx/282d71665915dca78f5f77da24edeeb1a5575fc4c9de6782ff8baf25897182a0) | TrustLend bridges a massive gap. The credit score generation based on Stellar payments is genius |
+| 7 | Geeta Patel | geetapatel2405@gmail.com | `GCSPRMOU65BMPHHBCZDD4QOZTTEF3PET3EBOO4XGLM5W2XQHQAPLJYUT` | [`dfeebb...d544`](https://testnet.steexp.com/tx/dfeebb179a8b147443cadd4ff64e0cacce55029d6956ff88f52bc4975995d544) | interface is very responsive. I encountered a small delay when pulling my payment history, but it worked |
+| 8 | Suresh Singh | sureshsingh7788@gmail.com | `GAKAOG35GRXDD5POKSZVA6UFPNNRN3UMJ4AY2U7W3TUPIYZFOXMKYTYX` | [`5a29cb...d6d6`](https://testnet.steexp.com/tx/5a29cb8d8b71ebd3da8edda9a18abd975f120f3014cdc54bbc92b6c3843ad6d6) | Awesome platform! One suggestion: let lenders see real-time utilization stats of the pool |
+| 9 | Aarti Gupta | aartig009@gmail.com | `GDJ4M4P4R7DQLXEDPP67VIELSVYRX2GDS7MKFWZHZ26CZXUYHDSTBVCB` | [`61c352...4ecb`](https://testnet.steexp.com/tx/61c3522d0e92cc8e8e0ba56c534e40c72ee6fca516398dfb6d8ce53de8624ecb) | Borrowing against my existing Stellar history instead of needing 150% collateral makes this protocol actually useful |
+| 10 | Manoj Yadav | manoj99yadav@gmail.com | `GAKR4NSVTH5FNRUI3Z6LKS7IVOYCCJWQUGKLB7HAXVTO6SCUP6EKXXP5` | [`7ca8ed...75bf`](https://testnet.steexp.com/tx/7ca8ed10e1437aa397fc183c67f4f15eae777c603666e170fb83c8be731b75bf) | Love the credit seal design! Would be cool if it could be minted as an NFT |
+| 11 | Jyoti Tiwari | jyotitiwari9900@gmail.com | `GBLCEDQ5PKBEDBBZIRCILOXXWFLMPRFLMBWUILPV5FVR5KBZ5OSR43SG` | [`f98640...452b`](https://testnet.steexp.com/tx/f986408218dfb5dfa1e0e19981cafb3bb7c86e23e84040e9c6f3983c583a452b) | Repaying the loan was simple. Adding email notifications for upcoming due dates would prevent defaults |
+| 12 | Deepak Kumar | deepak0101kumar@gmail.com | `GDGRIHRMRRLTKDUJPKLZT4G6666EDKSLVV7JJBQEPV6LQ2IMG6FBMAXJ` | [`811221...4583`](https://testnet.steexp.com/tx/81122178ff9cd91cabbe1bfbd6e15df489bcaf47b7bcb1e299b3543b59eb4583) | smart contract execution was very fast. TrustLend is definitely ready for mainnet |
+| 13 | Rekha Mishra | rmishra1234@gmail.com | `GCKIH7EF2QYES6IQPYPLUI3DWR5MLYAHWN25QKEWNNCJFIETNXNZCFJC` | [`35cbc6...736a`](https://testnet.steexp.com/tx/35cbc6dcce5407ff7b9c388ae7314fdbc390aaaa2bdebeb6d2434c8c1144736a) | Really solid hackathon project. The indexer syncing payment history is a very clever implementation |
+| 14 | Aarav Sharma | aaravsharma@gmail.com | `GBVZYT43BBIVVAZUD7ED2NU2FIUWJGE6PIOAIUQWXAF52LXLXUO62AKI` | [`4bc213...3009`](https://testnet.steexp.com/tx/4bc2131b202341f629a5f284ae5b270a102eca05fda5af10fa896655fb103009) | Great experience overall. Providing a breakdown of how the 300-1000 score is calculated would improve transparency |
 
+### 2. Feedback Implementation & Evolution
+Based on the feedback collected, we actively evolved the platform during the hackathon. We implemented these exact real feature requests directly into the production platform with unique Git commits:
 
-| User | Feedback | Feature Implemented | Commit |
-|------|----------|---------------------|--------|
-| Rohit Chauhan | "Borrowing worked instantly, but I was initially confused about the 18% interest rate. Make it more prominent." | Highlighted 18% Interest Rate | [`0990849`](https://github.com/anumehta70/TrustLend/commit/0990849) |
-| Aarav Sharma | "Great experience overall. Providing a breakdown of how the 300-1000 score is calculated would improve transparency." | Score Calculation Breakdown Tooltip | [`3baf7f3`](https://github.com/anumehta70/TrustLend/commit/3baf7f3) |
-| Jyoti Tiwari | "Repaying the loan was simple. Adding email notifications for upcoming due dates would prevent defaults." | Email Reminders UI on Dashboard | [`c1276c9`](https://github.com/anumehta70/TrustLend/commit/c1276c9) |
-| Priya Jain | "Lending into the pool was super easy. A feature to automatically reinvest yield would be amazing." | Auto-Reinvest Toggle on Lend Page | [`d44f896`](https://github.com/anumehta70/TrustLend/commit/d44f896) |
-| Suresh Singh | "Awesome platform! One suggestion: let lenders see real-time utilization stats of the pool." | Pool Utilization Stats UI | [`d44f896`](https://github.com/anumehta70/TrustLend/commit/d44f896) |
+| User ID | Name | Email | Wallet Address | Feedback Summary | Improvement Made | Git Commit ID |
+|---|---|---|---|---|---|---|
+| 4 | Rohit Chauhan | rohitc98765@gmail.com | `GBYSQQT7LZAEUNSOKDPAB7JUVVCXKEK3ZCEAPBSN5XQ3PUFPH7NJYR5V` | Borrowing worked instantly, but I was initially confused about the 18% interest rate. Make it more prominent | Highlighted 18% Interest Rate | [`0990849`](https://github.com/anumehta70/TrustLend/commit/0990849) |
+| 5 | Priya Jain | priya1990jain@gmail.com | `GBB72J2RTQTRUJGM7UBVBIS2P72PQ5ITZIENN6KWVKY4BQ7HC4OPQO42` | Lending into the pool was super easy. A feature to automatically reinvest yield would be amazing | Auto-Reinvest Toggle on Lend Page | [`d44f896`](https://github.com/anumehta70/TrustLend/commit/d44f896) |
+| 8 | Suresh Singh | sureshsingh7788@gmail.com | `GAKAOG35GRXDD5POKSZVA6UFPNNRN3UMJ4AY2U7W3TUPIYZFOXMKYTYX` | Awesome platform! One suggestion: let lenders see real-time utilization stats of the pool | Pool Utilization Stats UI | [`d44f896`](https://github.com/anumehta70/TrustLend/commit/d44f896) |
+| 11 | Jyoti Tiwari | jyotitiwari9900@gmail.com | `GBLCEDQ5PKBEDBBZIRCILOXXWFLMPRFLMBWUILPV5FVR5KBZ5OSR43SG` | Repaying the loan was simple. Adding email notifications for upcoming due dates would prevent defaults | Email Reminders UI on Dashboard | [`c1276c9`](https://github.com/anumehta70/TrustLend/commit/c1276c9) |
+| 14 | Aarav Sharma | aaravsharma@gmail.com | `GBVZYT43BBIVVAZUD7ED2NU2FIUWJGE6PIOAIUQWXAF52LXLXUO62AKI` | Great experience overall. Providing a breakdown of how the 300-1000 score is calculated would improve transparency | Score Calculation Breakdown Tooltip | [`3baf7f3`](https://github.com/anumehta70/TrustLend/commit/3baf7f3) |
 
 ---
 
