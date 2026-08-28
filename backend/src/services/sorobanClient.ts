@@ -80,7 +80,13 @@ async function adminCall(method: string, args: ReturnType<typeof nativeToScVal>[
 
 export const soroban = {
   async getCreditScore(borrowerWallet: string) {
-    return readOnlyCall("get_credit_score", [new Address(borrowerWallet).toScVal()]);
+    const res = await readOnlyCall("get_credit_score", [new Address(borrowerWallet).toScVal()]);
+    const scoreRaw = res as any;
+    return {
+      score: scoreRaw.score,
+      max_loan: scoreRaw.max_loan.toString(),
+      min_collateral_bps: scoreRaw.min_collateral_bps,
+    };
   },
   async getLoan(loanId: number) {
     return readOnlyCall("get_loan", [nativeToScVal(loanId, { type: "u64" })]);
