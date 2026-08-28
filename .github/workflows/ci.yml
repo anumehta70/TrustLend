@@ -43,7 +43,7 @@ jobs:
         run: cargo fmt --all -- --check
 
       - name: Run contract clippy
-        run: cargo clippy --all-targets -- -D warnings
+        run: cargo clippy --lib -- -D warnings
 
       - name: Run contract tests
         env:

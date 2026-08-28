@@ -14,8 +14,8 @@
 #![no_std]
 
 use soroban_sdk::{
-    contract, contracterror, contractimpl, contracttype, panic_with_error, symbol_short, token,
-    Address, Env, Symbol, Vec,
+    contract, contracterror, contractimpl, contracttype, symbol_short, token, Address, Env, Symbol,
+    Vec,
 };
 
 // ---------------------------------------------------------------------
@@ -109,7 +109,6 @@ pub enum Error {
 
 const MIN_SCORE: u32 = 300;
 const MAX_SCORE: u32 = 1000;
-const LEDGERS_PER_DAY: u64 = 17_280; // ~5s/ledger
 const LOAN_TERM_DAYS: u64 = 30;
 const LATE_SCORE_PENALTY: u32 = 60;
 const DEFAULT_SCORE_PENALTY: u32 = 180;
@@ -298,8 +297,8 @@ impl TrustLend {
         let recency_days = (now.saturating_sub(ledger.last_seen)) / 86_400;
 
         // Base: payment frequency + volume, in [0, 700]
-        let frequency_component = (ledger.payment_count.min(60) as u32) * 8; // up to 480
-        let volume_component = ((ledger.total_volume / 100_000_000).min(220) as u32).max(0); // 1 pt / unit, capped
+        let frequency_component = ledger.payment_count.min(60) * 8; // up to 480
+        let volume_component = (ledger.total_volume / 100_000_000).clamp(0, 220) as u32; // 1 pt / unit, capped
         let mut score = MIN_SCORE + frequency_component + volume_component;
 
         // Longevity bonus: sustained history over time
@@ -643,7 +642,7 @@ impl TrustLend {
 }
 
 #[allow(dead_code)]
-fn _unused(env: &Env) -> Symbol {
+fn _unused(_env: &Env) -> Symbol {
     // keeps `Symbol` import warning-free across soroban-sdk minor versions
     symbol_short!("trustlnd")
 }
