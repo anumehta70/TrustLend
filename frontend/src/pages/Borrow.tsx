@@ -19,6 +19,7 @@ export function Borrow() {
   const [lastTx, setLastTx] = useState<string | null>(null);
 
   const [principal, setPrincipal] = useState("25");
+  const [email, setEmail] = useState("");
 
   const refresh = useCallback(async (wallet: string) => {
     setState("loading");
@@ -220,7 +221,27 @@ export function Borrow() {
       </div>
 
       <div className="ledger-card">
-        <p className="card-label">Loan history</p>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "16px" }}>
+          <p className="card-label" style={{ marginBottom: 0 }}>Loan history</p>
+          <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+            <input 
+              type="email" 
+              placeholder="Email for due date alerts" 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+              style={{ padding: "4px 8px", fontSize: "0.8rem", width: "180px" }} 
+            />
+            <button 
+              className="btn btn-ghost" 
+              style={{ padding: "4px 8px", fontSize: "0.8rem" }} 
+              onClick={() => {
+                if (email) alert("Email alerts enabled for " + email);
+              }}
+            >
+              Subscribe
+            </button>
+          </div>
+        </div>
         {loans.length === 0 ? (
           <p className="lede">No loans yet — your first will appear here once confirmed on-chain.</p>
         ) : (
