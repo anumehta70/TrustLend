@@ -114,10 +114,11 @@ Stellar settles in ~5 seconds for fractions of a cent, which is what makes loans
 
 - **Advanced smart contract development**: Built with Rust, encompassing liquidity pooling, collateral management, and on-chain credit scoring algorithms.
 - **Event streaming & real-time updates**: Off-chain indexer built with Horizon to track and sync real-world payments to the blockchain.
+- **CI/CD pipeline setup**: GitHub Actions (`ci.yml`) automatically runs strict, blocking contract tests (including `fmt` and `clippy`) and builds/typechecks the frontend and backend. It also features a real frontend deployment step using the Vercel CLI with GitHub Secrets for continuous delivery.
 - **Smart contract deployment workflow**: Automated Bash scripts (`deploy.sh`) for testnet deployment, key generation, and contract initialization.
 - **Mobile responsive frontend development**: Fully responsive dashboards across devices with a custom "field ledger" UI design.
 - **Error handling & loading states**: Comprehensive error catching, loading states, and fallback UIs for RPC calls and wallet interactions.
-- **Writing tests for contracts**: Rust unit tests covering lending pools, credit scoring bounds, collateral requirements, and default scenarios.
+- **Writing tests for contracts**: Extensive Rust unit tests covering lending pools, credit scoring bounds, collateral requirements, and default scenarios. The CI strictly enforces passing tests before any merge.
 - **Production-ready architecture practices**: Decoupled smart contracts, a dedicated Express/TypeScript backend for indexing, and MongoDB persistence.
 
 ---

@@ -39,10 +39,16 @@ jobs:
       - name: Build TrustLend contract
         run: stellar contract build
 
+      - name: Run contract formatting check
+        run: cargo fmt --all -- --check
+
+      - name: Run contract clippy
+        run: cargo clippy --all-targets --all-features -- -D warnings
+
       - name: Run contract tests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: cargo test --workspace --verbose 2>&1 | tail -80
+        run: cargo test --workspace --verbose
 
   # ── Express backend ───────────────────────────────────────────────────────
   backend:
@@ -99,3 +105,19 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Deploy to Vercel (Preview)
+        if: github.event_name == 'pull_request'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: npx vercel pull --yes --environment=preview --token=$VERCEL_TOKEN && npx vercel build --token=$VERCEL_TOKEN && npx vercel deploy --prebuilt --token=$VERCEL_TOKEN
+
+      - name: Deploy to Vercel (Production)
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: npx vercel pull --yes --environment=production --token=$VERCEL_TOKEN && npx vercel build --prod --token=$VERCEL_TOKEN && npx vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
