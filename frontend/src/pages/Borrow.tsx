@@ -193,9 +193,14 @@ export function Borrow() {
               onChange={(e) => setPrincipal(e.target.value)}
             />
             {score && (
-              <span className="hint">
-                Collateral required at your score: {formatUsd((toStroops(Number(principal) || 0) * BigInt(score.min_collateral_bps)) / 10_000n)}
-              </span>
+              <div className="hint" style={{ display: "flex", flexDirection: "column", gap: "4px", marginTop: "8px" }}>
+                <span>
+                  Collateral required at your score: {formatUsd((toStroops(Number(principal) || 0) * BigInt(score.min_collateral_bps)) / 10_000n)}
+                </span>
+                <span style={{ color: "var(--brand-primary)" }}>
+                  Fixed 18% Interest Rate. Total repayment: {formatUsd((toStroops(Number(principal) || 0) * 118n) / 100n)}
+                </span>
+              </div>
             )}
           </div>
           <button className="btn btn-brass" onClick={handleRequestLoan} disabled={!score || busy === "loan"}>
