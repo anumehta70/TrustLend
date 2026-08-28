@@ -16,7 +16,8 @@ scoreRouter.get("/:wallet", async (req, res, next) => {
     const score = await soroban.getCreditScore(wallet);
     res.json({ wallet, score });
   } catch (err) {
-    next(err instanceof Error && err.message.includes("NoPaymentHistory") ? new ApiError(404, "No payment history recorded for this wallet yet") : err);
+    const isNoHistory = err instanceof Error && (err.message.includes("NoPaymentHistory") || err.message.includes("Error(Contract, #1)"));
+    next(isNoHistory ? new ApiError(404, "No payment history recorded for this wallet yet") : err);
   }
 });
 
