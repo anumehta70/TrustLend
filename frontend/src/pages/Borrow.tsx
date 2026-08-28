@@ -156,7 +156,12 @@ export function Borrow() {
 
       <div className="dash-grid">
         <div className="ledger-card">
-          <p className="card-label">Credit seal</p>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+            <p className="card-label" style={{ marginBottom: 0 }}>Credit seal</p>
+            <p className="hint" style={{ fontSize: "0.75rem", textAlign: "right", maxWidth: "200px", margin: 0 }}>
+              Score is calculated purely from your on-chain payment frequency, volume, and repayment history.
+            </p>
+          </div>
           {state === "loading" && !score ? (
             <p className="lede">Reading your ledger…</p>
           ) : score ? (
