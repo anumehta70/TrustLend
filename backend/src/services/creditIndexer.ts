@@ -20,7 +20,7 @@ export async function syncWalletPayments(wallet: string): Promise<{ synced: numb
   let skipped = 0;
 
   const page = await horizon
-    .payments()
+    .operations()
     .forAccount(wallet)
     .order("desc")
     .limit(50)
