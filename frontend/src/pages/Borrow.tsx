@@ -175,7 +175,7 @@ export function Borrow() {
           </button>
           {lastTx && (
             <p className="hint" style={{ marginTop: "12px" }}>
-              Confirmed · <a href={`https://stellar.expert/explorer/testnet/tx/${lastTx}`} target="_blank" rel="noopener noreferrer" className="mono" style={{ textDecoration: "underline", color: "var(--brand-primary)" }}>{truncateAddress(lastTx, 6)} ↗</a>
+              Confirmed · <a href={`https://testnet.steexp.com/tx/${lastTx}`} target="_blank" rel="noopener noreferrer" className="mono" style={{ textDecoration: "underline", color: "var(--brand-primary)" }}>{truncateAddress(lastTx, 6)} ↗</a>
             </p>
           )}
         </div>
