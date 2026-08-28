@@ -38,7 +38,24 @@ TRUSTLEND_CONTRACT_ID=$(stellar contract deploy \
 echo "[OK] TrustLend deployed"
 echo ""
 
-# ── 4. Summary ────────────────────────────────────────────────────────────
+# ── 4. Initialize TrustLend contract ────────────────────────────────────────
+echo "==> Initializing TrustLend contract..."
+DEPLOYER_PUBKEY=$(stellar keys address "$DEPLOYER")
+NATIVE_XLM="CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC"
+
+stellar contract invoke \
+    --id "$TRUSTLEND_CONTRACT_ID" \
+    --source "$DEPLOYER" \
+    --network "$NETWORK" \
+    -- \
+    initialize \
+    --admin "$DEPLOYER_PUBKEY" \
+    --token "$NATIVE_XLM"
+
+echo "[OK] TrustLend initialized with Testnet XLM"
+echo ""
+
+# ── 5. Summary ────────────────────────────────────────────────────────────
 echo "=================================================="
 echo "  Deployment Complete"
 echo "=================================================="
