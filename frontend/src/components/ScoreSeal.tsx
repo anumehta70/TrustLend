@@ -36,6 +36,13 @@ export function ScoreSeal({ score, min = 300, max = 1000 }: ScoreSealProps) {
           {tier.toUpperCase()}
         </text>
       </svg>
+      <button 
+        className="btn btn-ghost" 
+        style={{ marginTop: '8px', fontSize: '0.75rem', width: '100%' }}
+        onClick={() => alert('NFT Minting coming soon!')}
+      >
+        Mint as NFT
+      </button>
     </div>
   );
 }
