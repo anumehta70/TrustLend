@@ -78,7 +78,14 @@ We implemented these exact real feature requests directly into the production pl
 | 11 | Jyoti Tiwari | jyotitiwari9900@gmail.com | `GBLCEDQ5PKBEDBBZIRCILOXXWFLMPRFLMBWUILPV5FVR5KBZ5OSR43SG` | Repaying the loan was simple. Adding email notifications for upcoming due dates would prevent defaults | Email Reminders UI on Dashboard | [`c1276c9`](https://github.com/anumehta70/TrustLend/commit/c1276c9) |
 | 14 | Aarav Sharma | aaravsharma@gmail.com | `GBVZYT43BBIVVAZUD7ED2NU2FIUWJGE6PIOAIUQWXAF52LXLXUO62AKI` | Great experience overall. Providing a breakdown of how the 300-1000 score is calculated would improve transparency | Score Calculation Breakdown Tooltip | [`3baf7f3`](https://github.com/anumehta70/TrustLend/commit/3baf7f3) |
 
-### 3. Proof of Transactions
+### 3. Future Roadmap: Evolving TrustLend (Next Phase)
+Based on the broader feedback collected from our 50+ users in the Google Sheet, we have identified key areas for our next phase of development:
+- **Fiat On/Off Ramps**: Multiple users requested an easier way to move between local currency and Stellar USDC. We plan to integrate MoneyGram Access for seamless global cash deposits and withdrawals.
+- **Credit Score as a Service**: Users loved the on-chain scoring logic. We plan to decouple the `get_credit_score` module into a standalone Soroban oracle that other dApps can query.
+- **Hardware Wallet Support**: Advanced users requested Ledger integration, which we will prioritize in our next frontend update.
+- **Mobile Application**: While our web app is fully mobile-responsive (as seen in the screenshots), users frequently asked for a dedicated React Native mobile app for easier everyday borrowing.
+
+### 4. Proof of Transactions
 Below are the verified on-chain transaction hashes for our beta testers on the Stellar Testnet:
 
 | User ID | Name | Wallet Address | Proof (Transaction Link) |
