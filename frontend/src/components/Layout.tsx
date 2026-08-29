@@ -1,10 +1,12 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { useWallet } from "../lib/wallet";
+import { useTheme } from "../lib/ThemeContext";
 import { truncateAddress } from "../lib/format";
 import "./Layout.css";
 
 export function Layout() {
   const { address, connecting, error, connect, disconnect } = useWallet();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <div className="shell">
@@ -26,7 +28,10 @@ export function Layout() {
             </NavLink>
           </nav>
 
-          <div className="wallet-slot">
+          <div className="wallet-slot" style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+            <button className="btn btn-ghost" onClick={toggleTheme} style={{ padding: '8px', minWidth: '40px' }} title="Toggle Theme">
+              {theme === 'dark' ? '☀️' : '🌙'}
+            </button>
             {address ? (
               <button className="btn btn-ghost" onClick={disconnect} title={address}>
                 <span className="mono">{truncateAddress(address)}</span>
