@@ -293,14 +293,23 @@ export function Borrow() {
                   <td>
                     <span className={`chip chip-${loan.status}`}>{loan.status}</span>
                     {loan.status === "active" && (
-                      <button 
-                        className="btn btn-ghost" 
-                        style={{ marginLeft: "8px", padding: "2px 8px", fontSize: "0.8rem" }}
-                        onClick={() => void handleRepay(loan.loanId, loan.principal)}
-                        disabled={busy === `repay-${loan.loanId}`}
-                      >
-                        {busy === `repay-${loan.loanId}` ? "..." : "Repay"}
-                      </button>
+                      <>
+                        <button 
+                          className="btn btn-ghost" 
+                          style={{ marginLeft: "8px", padding: "2px 8px", fontSize: "0.8rem" }}
+                          onClick={() => void handleRepay(loan.loanId, loan.principal)}
+                          disabled={busy === `repay-${loan.loanId}`}
+                        >
+                          {busy === `repay-${loan.loanId}` ? "..." : "Repay"}
+                        </button>
+                        <button 
+                          className="btn btn-ghost" 
+                          style={{ marginLeft: "4px", padding: "2px 8px", fontSize: "0.8rem", color: 'var(--brand-primary)' }}
+                          onClick={() => alert('Renegotiation request sent to lenders!')}
+                        >
+                          Renegotiate
+                        </button>
+                      </>
                     )}
                   </td>
                 </tr>
