@@ -168,8 +168,15 @@ export function Borrow() {
           {state === "loading" && !score ? (
             <p className="lede">Reading your ledger…</p>
           ) : score ? (
-            <div className="seal-row">
+            <div className="seal-row" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <ScoreSeal score={score.score} />
+              <button 
+                className="btn btn-ghost" 
+                style={{ fontSize: '0.8rem', padding: '4px 8px' }}
+                onClick={() => alert('Score history chart coming soon!')}
+              >
+                View Score History 📈
+              </button>
               <dl className="hero-seal-stats">
                 <div>
                   <dt>Loan ceiling</dt>
