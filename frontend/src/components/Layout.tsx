@@ -62,6 +62,22 @@ export function Layout() {
           </a>
         </div>
       </footer>
+
+      <button
+        className="btn btn-brass"
+        style={{
+          position: 'fixed',
+          bottom: '20px',
+          right: '20px',
+          borderRadius: '50px',
+          padding: '12px 24px',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+          zIndex: 1000
+        }}
+        onClick={() => alert('Live Chat Support coming soon!')}
+      >
+        💬 Live Chat
+      </button>
     </div>
   );
 }
