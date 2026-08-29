@@ -4,6 +4,7 @@ import { api, type CreditScore, type LoanRecord } from "../lib/api";
 import { invokeAsWallet, contractArgs, tokenContractId } from "../lib/contract";
 import { toStroops, formatUsd, truncateAddress } from "../lib/format";
 import { ScoreSeal } from "../components/ScoreSeal";
+import { LoanCalculator } from "../components/LoanCalculator";
 import { FeedbackForm } from "../components/FeedbackForm";
 import "./Dashboard.css";
 
@@ -122,6 +123,7 @@ export function Borrow() {
   if (!address) {
     return (
       <section className="page dash-empty">
+        <LoanCalculator />
         <div className="ledger-card">
           <p className="card-label">Borrower dashboard</p>
           <h2 className="h2">Connect your wallet to see your score</h2>
@@ -282,6 +284,7 @@ export function Borrow() {
         )}
       </div>
 
+      <LoanCalculator />
       <FeedbackForm wallet={address} />
     </section>
   );
