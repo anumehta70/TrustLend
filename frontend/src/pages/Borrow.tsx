@@ -223,9 +223,9 @@ export function Borrow() {
       </div>
 
       <div className="ledger-card">
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "16px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "16px", flexWrap: "wrap", gap: "16px" }}>
           <p className="card-label" style={{ marginBottom: 0 }}>Loan history</p>
-          <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+          <div style={{ display: "flex", gap: "8px", alignItems: "center", flexWrap: "wrap" }}>
             <input 
               type="email" 
               placeholder="Email for due date alerts" 
@@ -241,6 +241,25 @@ export function Borrow() {
               }}
             >
               Subscribe
+            </button>
+            <button 
+              className="btn btn-ghost" 
+              style={{ padding: "4px 8px", fontSize: "0.8rem", marginLeft: "16px" }} 
+              onClick={() => {
+                if (loans.length === 0) return;
+                const header = "Loan ID,Principal,Collateral,Due Date,Status\n";
+                const rows = loans.map(l => `${l.loanId},${formatUsd(l.principal)},${formatUsd(l.collateral)},${new Date(l.dueAt).toLocaleDateString()},${l.status}`).join("\n");
+                const blob = new Blob([header + rows], { type: 'text/csv' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `trustlend-history-${address}.csv`;
+                a.click();
+                URL.revokeObjectURL(url);
+              }}
+              disabled={loans.length === 0}
+            >
+              Download CSV
             </button>
           </div>
         </div>
